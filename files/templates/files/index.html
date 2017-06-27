@@ -1,0 +1,47 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+
+{% for dirname, data in files.items %}
+<h2>{{ dirname }}</h2>
+{{ data.fullpath }}
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+  	<tr>
+  	  <th>#</th>
+  	  <th>Name</th>
+  	  <th>Date</th>
+  	</tr>
+    </thead>
+    <tbody>
+
+  {% for name, date in data.files %}
+  	<tr>
+  	  <td>{{ forloop.index }}</td>
+  	  <td>{{ name }}</td>
+  	  <td>{{ date }}</td>
+  	</tr>
+  {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+
+
+<form action="/url/to/submit/" method="post" class="form">
+  {% csrf_token %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Submit
+    </button>
+  {% endbuttons %}
+</form>
+
+</div>
